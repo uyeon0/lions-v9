@@ -1,6 +1,10 @@
 # 다시, 정상
 
-삼성 라이온즈가 2014년 한국시리즈 우승 뒤 암흑기(2016~2023)를 지나 2026년 한국시리즈에서 다시 우승하기까지를 KBO 정규시즌 기록으로 보여 주는 Streamlit 페이지다. 이야기를 9이닝으로 나눈 메인 페이지와, 분석 페이지 4개("더 깊이 보기")로 이뤄져 있다. 삼성 라이온즈 구단과 무관하게 학습용으로 만들었다.
+**배포 주소: https://lions-v9.streamlit.app**
+
+![메인 페이지 첫 화면: 12년 만에 정상에 섰다, 2017년과 2026년 성적 전광판](docs/screenshot.jpg)
+
+삼성 라이온즈가 2014년 한국시리즈 우승 뒤 암흑기(2016~2023)를 지나 2026년 한국시리즈에서 다시 우승하기까지를 KBO 정규시즌 기록으로 보여 주는 Streamlit 페이지다. 이야기를 9이닝으로 나눈 [메인 페이지](https://lions-v9.streamlit.app)와, 분석 페이지 4개("더 깊이 보기": [어떻게 무너졌나](https://lions-v9.streamlit.app/fall), [탈출의 열쇠](https://lions-v9.streamlit.app/key), [2026 멤버는 어디서 왔나](https://lions-v9.streamlit.app/members), [타임머신](https://lions-v9.streamlit.app/timemachine))로 이뤄져 있다. 삼성 라이온즈 구단과 무관하게 학습용으로 만들었다.
 
 ## 실행
 
@@ -46,6 +50,7 @@ python scripts/verify.py     # 집계 결과를 공식 팀 기록과 비교 (선
 │   ├── raw/                # Kaggle 원본
 │   ├── clean/              # scripts/clean.py가 만든 집계 결과
 │   └── external/           # 언론 기사에서 모은 값
+├── docs/screenshot.jpg      # README 화면 캡처
 └── 작업노트.md              # 결정 기록과 진행 상황
 ```
 
