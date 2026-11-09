@@ -15,13 +15,16 @@ html,body{overflow-x:hidden;}
 [data-testid="stMain"] strong{color:var(--blue);}
 
 /* 상단 바 (메인 페이지 .ibar와 같은 검정 · 노랑 밑줄) — 블록 컨테이너 패딩을 넘어 화면 끝까지 */
-.dbar{background:#05070a;border-bottom:3px solid var(--yellow);width:100vw;box-sizing:border-box;margin:0 0 36px calc(50% - 50vw);padding:10px var(--gut);}
-.dbar{padding-top:14px !important;padding-bottom:14px !important;}.dbar .in{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;font-family:'DotGothic16',monospace;font-size:14px;letter-spacing:.06em;}
-.dbar a{color:#c9ced6 !important;text-decoration:none !important;padding:3px 0;border-bottom:2px solid transparent;}
-.dbar a:hover{color:#ffd84a !important;}
-.dbar a.home{color:#9aa3ae !important;font-size:12px;}.dbar .tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;}
-.dbar a.on{color:#ffd84a !important;border-bottom-color:#ffd84a;text-shadow:0 0 6px rgba(255,216,74,.5);}
-.dbar .lb{font-family:'Black Han Sans',sans-serif;color:#fff;font-size:clamp(24px,3.4vw,32px);letter-spacing:.04em;line-height:1.1;}
+/* 상단 바: st.container(key="dbar") 안의 st.page_link (배포 iframe에서도 주소창이 바뀌도록 HTML 링크 대신 씀) */
+.st-key-dbar{background:#05070a;border-bottom:3px solid var(--yellow);width:100vw !important;max-width:none !important;box-sizing:border-box;margin:0 0 36px calc(50% - 50vw);padding:14px var(--gut) !important;gap:6px !important;align-items:center !important;text-align:center;}
+.st-key-dbar [data-testid="stPageLink-NavLink"]{background:none !important;padding:3px 0 !important;margin:0 !important;border-radius:0 !important;border-bottom:2px solid transparent;}
+.st-key-dbar [data-testid="stPageLink-NavLink"] *{color:#c9ced6 !important;font-family:'DotGothic16',monospace !important;font-size:14px !important;letter-spacing:.06em;font-weight:400 !important;}
+.st-key-dbar [data-testid="stPageLink-NavLink"]:hover *{color:#ffd84a !important;}
+.st-key-dhome [data-testid="stPageLink-NavLink"] *{color:#9aa3ae !important;font-size:12px !important;}
+.st-key-dtabs{gap:6px 22px !important;flex-wrap:wrap !important;}
+.st-key-dtab_on [data-testid="stPageLink-NavLink"]{border-bottom-color:#ffd84a;}
+.st-key-dtab_on [data-testid="stPageLink-NavLink"] *{color:#ffd84a !important;text-shadow:0 0 6px rgba(255,216,74,.5);}
+.st-key-dbar .lb{font-family:'Black Han Sans',sans-serif;color:#fff;font-size:clamp(24px,3.4vw,32px);letter-spacing:.04em;line-height:1.1;}
 
 /* 제목 · 캡션 */
 [data-testid="stMain"] h1,[data-testid="stMain"] h2,[data-testid="stMain"] h3{font-family:'Black Han Sans',sans-serif !important;font-weight:400 !important;color:var(--blue) !important;text-wrap:balance;letter-spacing:-0.01em;}

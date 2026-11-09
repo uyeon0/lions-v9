@@ -29,11 +29,18 @@ DEEP_PAGES = [("fall", "어떻게 무너졌나"), ("key", "탈출의 열쇠"),
 
 
 def deep_page(current: str) -> None:
-    """종이 톤 CSS + 상단 바(메인으로 · 4개 페이지 탭). 각 페이지 맨 위에서 한 번 부른다."""
-    tabs = "".join(f'<a href="/{u}" target="_self" class="{"on" if u == current else ""}">{t}</a>'
-                   for u, t in DEEP_PAGES)
-    st.html(f'<style>{DEEP_CSS}</style><nav class="dbar"><div class="in">'
-            f'<a class="home" href="/" target="_self">← 다시, 정상</a><div class="lb">더 깊이 보기</div><div class="tabs">{tabs}</div></div></nav>')
+    """종이 톤 CSS + 상단 바(메인으로 · 4개 페이지 탭). 각 페이지 맨 위에서 한 번 부른다.
+    링크는 st.page_link로 만든다. 배포 환경(Streamlit Cloud)은 앱을 iframe에 넣어서,
+    HTML 링크로 옮기면 iframe 안에서만 페이지가 바뀌고 주소창은 그대로 남기 때문이다."""
+    st.html(f"<style>{DEEP_CSS}</style>")
+    with st.container(key="dbar"):
+        with st.container(key="dhome", width="content"):
+            st.page_link("views/main.py", label="← 다시, 정상")
+        st.html('<div class="lb">더 깊이 보기</div>')
+        with st.container(horizontal=True, horizontal_alignment="center", key="dtabs"):
+            for u, t in DEEP_PAGES:
+                with st.container(key=f"dtab_{'on' if u == current else u}", width="content"):
+                    st.page_link(f"views/deep/{u}.py", label=t)
 
 
 def _cell(v, fmt):

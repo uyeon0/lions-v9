@@ -390,8 +390,8 @@ s8 = f"""
 </section>"""
 
 # ── 9회 ──
-deeper = " ".join(f'<a href="{p}" target="_self">{t}</a>' for p, t in
-                  [("fall", "어떻게 무너졌나"), ("key", "탈출의 열쇠"), ("members", f"{NOW} 멤버는 어디서 왔나"), ("timemachine", "타임머신")])
+# 더 깊이 보기 링크는 HTML 밖에서 st.page_link로 붙인다 (맨 아래 '조립' 참고)
+DEEPER = [("fall", "어떻게 무너졌나"), ("key", "탈출의 열쇠"), ("members", f"{NOW} 멤버는 어디서 왔나"), ("timemachine", "타임머신")]
 s9 = f"""
 <section class="sec s9" style="background:var(--blue);padding:110px 0 0">
   <div class="wrap">
@@ -438,7 +438,6 @@ s9 = f"""
   </div>
   <div style="background:#05070a;color:#8a929c">
     <div class="wrap note" style="padding-top:22px;padding-bottom:26px">{DISCLAIM} 정규시즌: KBO 기록실 선수 기록 (<a href="https://www.kaggle.com/datasets/netsong/kbo-player-stats-19822025">KBO Player Stats 1982–2026</a>, netsong, CC BY-NC-SA 4.0)을 팀 단위로 합쳐 계산. 포스트시즌: <a href="{e(MT)}">머니투데이</a>, <a href="https://www.newsis.com/view/NISI20261109_0002286205">뉴시스</a>, <a href="https://kbmaeil.com/article/201411120114505">경북매일</a>, <a href="https://www.jjan.kr/articleAmp/20241029580003">전북일보</a>, <a href="{e(tie.source)}">스포츠경향</a>({FLASH} 1위 결정전). 상단 전광판은 {NOW} 한국시리즈 {e(ks_now.clinch_game)} 삼성 이닝별 득점: <a href="https://www.mediapen.com/news/view/1136064">미디어펜</a>, <a href="https://news.jkn.co.kr/post/1078306">재경일보</a>, <a href="https://www.kbmaeil.com/article/20261108500566">경북매일</a>(득점이 적히지 않은 이닝은 합계로 추론한 0).
-      <div class="deeper"><b style="color:#c9d1db">더 깊이 보기</b> {deeper}</div>
     </div>
   </div>
   </div>
@@ -450,3 +449,9 @@ top = f'<div class="topnote" style="background:#05070a;color:#8a929c;border-bott
 PAGE = f"<style>{CSS}</style><div class=\"page\" style=\"background:var(--night)\">{top}{ibar}{hero}{s1}{s2}{s3}{s4}{s5}{s6}{s7}{s8}{s9}</div>"
 
 st.html(PAGE)
+
+# 배포 환경(Streamlit Cloud)은 앱을 iframe에 넣어서 HTML 링크로는 주소창이 바뀌지 않음 → st.page_link 사용
+with st.container(key="deeper", horizontal=True):
+    st.html('<b class="deeper-lb">더 깊이 보기</b>')
+    for u, t in DEEPER:
+        st.page_link(f"views/deep/{u}.py", label=t)

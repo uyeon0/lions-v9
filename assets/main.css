@@ -72,7 +72,13 @@
 .lsb .r{font-family:'DotGothic16',monospace;font-size:14px;color:#3a404a;}
 .bso{display:flex;flex-direction:column;gap:3px;font-family:'DotGothic16',monospace;font-size:11px;color:#8a929c;}
 .bso i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#232831;margin-left:3px;}
-.deeper{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;}
+.st-key-deeper{background:#05070a;width:100vw !important;max-width:none !important;box-sizing:border-box;margin:-16px 0 0 calc(50% - 50vw);padding:0 max(var(--gut), calc((100vw - 1080px) / 2)) calc(56px + env(safe-area-inset-bottom)) !important;gap:6px 18px !important;flex-wrap:wrap !important;align-items:center !important;justify-content:flex-start !important;}
+.st-key-deeper > div{width:auto !important;flex:0 0 auto !important;}
+/* 페이지 맨 끝도 스냅 지점으로: 없으면 VAMOS 머리로만 되돌아가 하단 링크가 화면 밖으로 밀림 */
+.st-key-deeper{scroll-snap-align:end;}
+.st-key-deeper .deeper-lb{color:#c9d1db;font-size:13px;}
+.st-key-deeper [data-testid="stPageLink-NavLink"]{background:none !important;padding:0 !important;margin:0 !important;}
+.st-key-deeper [data-testid="stPageLink-NavLink"] *{color:#8fb4e8 !important;font-size:13px !important;text-decoration:underline;}
 @media (max-width:640px){
   .bso{display:none;}
   .ticket{grid-template-columns:minmax(0,1fr) 72px;}
