@@ -391,7 +391,10 @@ s8 = f"""
 
 # ── 9회 ──
 # 더 깊이 보기 링크는 HTML 밖에서 st.page_link로 붙인다 (맨 아래 '조립' 참고)
-DEEPER = [("fall", "어떻게 무너졌나"), ("key", "탈출의 열쇠"), ("members", f"{NOW} 멤버는 어디서 왔나"), ("timemachine", "타임머신")]
+DEEPER = [("fall", "어떻게 무너졌나", "떠난 주축 선수와 득점력 · 실점 억제의 변화"),
+          ("key", "탈출의 열쇠", "두 시즌을 골라 리그 평균 대비 지표 비교"),
+          ("members", f"{NOW} 멤버는 어디서 왔나", "출전을 선수가 삼성에 온 경로별로 나눔"),
+          ("timemachine", "타임머신", "시즌을 골라 그해 주요 타자 · 투수 카드")]
 s9 = f"""
 <section class="sec s9" style="background:var(--blue);padding:110px 0 0">
   <div class="wrap">
@@ -429,15 +432,11 @@ s9 = f"""
     </div>
   </div>
   <div class="endscreen" style="margin-top:110px">
-  <div class="finmark" style="background:var(--yellow);color:var(--ink);padding:70px 0 60px;text-align:center;overflow:clip">
+  <div class="finmark" style="background:var(--yellow);color:var(--ink);padding:90px 0 40px;text-align:center;overflow:clip">
     <div class="wrap">
       <div class="disp reveal" style="font-size:clamp(80px,16vw,200px);line-height:.9;letter-spacing:.02em">{e(ks_now.slogan)}</div>
       <div class="reveal" style="margin-top:14px;font-size:18px;font-weight:700">함께 나아가자. 다음 시즌에도.</div>
       <div class="note" style="margin-top:8px;color:#3d3a2c">{e(ks_now.slogan)}({e(ks_now.slogan_meaning)})는 삼성 라이온즈의 {NOW} 포스트시즌 슬로건입니다 · <a href="{e(ks_now.slogan_source)}">머니투데이 2026-10-26</a></div>
-    </div>
-  </div>
-  <div style="background:#05070a;color:#8a929c">
-    <div class="wrap note" style="padding-top:22px;padding-bottom:26px">{DISCLAIM} 정규시즌: KBO 기록실 선수 기록 (<a href="https://www.kaggle.com/datasets/netsong/kbo-player-stats-19822025">KBO Player Stats 1982–2026</a>, netsong, CC BY-NC-SA 4.0)을 팀 단위로 합쳐 계산. 포스트시즌: <a href="{e(MT)}">머니투데이</a>, <a href="https://www.newsis.com/view/NISI20261109_0002286205">뉴시스</a>, <a href="https://kbmaeil.com/article/201411120114505">경북매일</a>, <a href="https://www.jjan.kr/articleAmp/20241029580003">전북일보</a>, <a href="{e(tie.source)}">스포츠경향</a>({FLASH} 1위 결정전). 상단 전광판은 {NOW} 한국시리즈 {e(ks_now.clinch_game)} 삼성 이닝별 득점: <a href="https://www.mediapen.com/news/view/1136064">미디어펜</a>, <a href="https://news.jkn.co.kr/post/1078306">재경일보</a>, <a href="https://www.kbmaeil.com/article/20261108500566">경북매일</a>(득점이 적히지 않은 이닝은 합계로 추론한 0).
     </div>
   </div>
   </div>
@@ -448,10 +447,24 @@ top = f'<div class="topnote" style="background:#05070a;color:#8a929c;border-bott
 
 PAGE = f"<style>{CSS}</style><div class=\"page\" style=\"background:var(--night)\">{top}{ibar}{hero}{s1}{s2}{s3}{s4}{s5}{s6}{s7}{s8}{s9}</div>"
 
+FOOT = f"""<div class="foot">
+  <div style="background:#05070a;color:#8a929c">
+    <div class="wrap note" style="padding-top:22px;padding-bottom:26px">{DISCLAIM} 정규시즌: KBO 기록실 선수 기록 (<a href="https://www.kaggle.com/datasets/netsong/kbo-player-stats-19822025">KBO Player Stats 1982–2026</a>, netsong, CC BY-NC-SA 4.0)을 팀 단위로 합쳐 계산. 포스트시즌: <a href="{e(MT)}">머니투데이</a>, <a href="https://www.newsis.com/view/NISI20261109_0002286205">뉴시스</a>, <a href="https://kbmaeil.com/article/201411120114505">경북매일</a>, <a href="https://www.jjan.kr/articleAmp/20241029580003">전북일보</a>, <a href="{e(tie.source)}">스포츠경향</a>({FLASH} 1위 결정전). 상단 전광판은 {NOW} 한국시리즈 {e(ks_now.clinch_game)} 삼성 이닝별 득점: <a href="https://www.mediapen.com/news/view/1136064">미디어펜</a>, <a href="https://news.jkn.co.kr/post/1078306">재경일보</a>, <a href="https://www.kbmaeil.com/article/20261108500566">경북매일</a>(득점이 적히지 않은 이닝은 합계로 추론한 0).
+    </div>
+  </div>
+</div>"""
+
 st.html(PAGE)
 
-# 배포 환경(Streamlit Cloud)은 앱을 iframe에 넣어서 HTML 링크로는 주소창이 바뀌지 않음 → st.page_link 사용
-with st.container(key="deeper", horizontal=True):
-    st.html('<b class="deeper-lb">더 깊이 보기</b>')
-    for u, t in DEEPER:
-        st.page_link(f"views/deep/{u}.py", label=t)
+# ── 더 깊이 보기 카드 + 출처 ──
+# 배포 환경(Streamlit Cloud)은 앱을 iframe에 넣어서 HTML 링크로는 주소창이 바뀌지 않음 → st.page_link로 카드를 만든다.
+# 카드는 VAMOS(노랑) 바로 아래에 이어 붙이고, 출처는 그 아래 별도 st.html로 그린다.
+with st.container(key="deepcards"):
+    st.html('<div class="dk-h">더 깊이 보기</div>')
+    with st.container(key="dgrid"):
+        for u, t, d in DEEPER:
+            with st.container(key=f"dcard_{u}"):
+                st.page_link(f"views/deep/{u}.py", label=f"{t} →")
+                st.html(f'<div class="dk-d">{d}</div>')
+
+st.html(FOOT)
